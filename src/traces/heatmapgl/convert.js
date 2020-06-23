@@ -97,8 +97,16 @@ proto.update = function(fullTrace, calcTrace) {
 
     var xa = this.scene.xaxis;
     var ya = this.scene.yaxis;
-    fullTrace._extremes[xa._id] = Axes.findExtremes(xa, calcPt.x);
-    fullTrace._extremes[ya._id] = Axes.findExtremes(ya, calcPt.y);
+
+    var xOpts, yOpts;
+    if(fullTrace.zsmooth === false) {
+        // increase padding for discretised heatmap as suggested by Louise Ord
+        xOpts = { ppad: calcPt.x[1] - calcPt.x[0] };
+        yOpts = { ppad: calcPt.y[1] - calcPt.y[0] };
+    }
+
+    fullTrace._extremes[xa._id] = Axes.findExtremes(xa, calcPt.x, xOpts);
+    fullTrace._extremes[ya._id] = Axes.findExtremes(ya, calcPt.y, yOpts);
 };
 
 proto.dispose = function() {
