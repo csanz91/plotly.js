@@ -31,6 +31,7 @@ function Heatmap(scene, uid) {
     this.bounds = [0, 0, 0, 0];
 
     this.options = {
+        zsmooth: 'fast',
         z: [],
         x: [],
         y: [],
@@ -85,6 +86,7 @@ proto.update = function(fullTrace, calcTrace) {
 
     this.options.x = calcPt.x;
     this.options.y = calcPt.y;
+    this.options.zsmooth = fullTrace.zsmooth;
 
     var colorOptions = convertColorscale(fullTrace);
     this.options.colorLevels = colorOptions.colorLevels;
